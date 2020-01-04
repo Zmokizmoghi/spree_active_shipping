@@ -159,13 +159,14 @@ module Spree
 
           weights = package.contents.map do |content_item|
             item_weight = content_item.variant.weight.to_f
+            item_weight *= content_item.quantity
             item_weight = default_weight if item_weight <= 0
             item_weight *= multiplier
 
             if max_weight <= 0 || item_weight < max_weight
               item_weight
             else
-              raise Spree::ShippingError.new("#{I18n.t(:shipping_error)}: The maximum per package weight for the selected service from the selected country is #{max_weight} ounces.")  
+              raise Spree::ShippingError.new("#{I18n.t(:shipping_error)}: The maximum per package weight for the selected service from the selected country is #{max_weight} ounces.")
             end
           end
           weights.flatten.compact.sort
