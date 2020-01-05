@@ -103,6 +103,8 @@ module Spree
               [CGI.unescapeHTML(service_name), rate.price]
             end
             rate_hash = Hash[*rates.flatten]
+            logger.debug("Response")
+            logger.debug(rate_hash)
             return rate_hash
           rescue ::ActiveShipping::Error => e
 
@@ -276,6 +278,10 @@ module Spree
               retrieve_rates(origin, destination, shipment_packages)
             end
           end
+        end
+
+        def logger
+          Logger.new('log/fedex.log')
         end
       end
     end
