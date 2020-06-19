@@ -12,8 +12,6 @@ module Spree
             login: Spree::ActiveShipping::Config[:fedex_login],
             test: Spree::ActiveShipping::Config[:test_mode]
           }
-          ActiveShipping::FedEx.logger = Logger.new('log/fedex.log')
-
           ::ActiveShipping::FedEx.new(carrier_details)
         end
       end
